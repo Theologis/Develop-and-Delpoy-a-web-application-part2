@@ -1,4 +1,4 @@
-package com;
+package com.chinito.carsmanager.config;
 
 
 import java.io.*;
@@ -18,13 +18,42 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import javax.persistence.EntityManagerFactory;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
+
+import com.chinito.catsmanager.model.ProductsInfo;
+
 import java.sql.Connection;
+
+@Configuration
+@EnableJpaRepositories (basePackages = {"com.chinito.carsmanager"})
 
 public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     public Register() {
         super();
+
+    }
+    
+    public LocalEntityManagerFactoryBean entityManagerFactory() {
+	    LocalEntityManagerFactoryBean factoryBean = new LocalEntityManagerFactoryBean();
+	    factoryBean.setPersistenceUnitName("CarsDB");
+
+    return factoryBean;
+    }
+
+    public JpaTransactionManager transactionManager (EntityManagerFactory entityManagerFactory) {
+	    JpaTransactionManager transactionManager = new JpaTransactionManager();
+	    transactionManager.setEntityManagerFactory(entityManagerFactory);
+
+    return transactionManager;
 
     }
     

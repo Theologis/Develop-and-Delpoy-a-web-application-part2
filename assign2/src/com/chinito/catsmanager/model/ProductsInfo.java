@@ -1,4 +1,4 @@
-package com;
+package com.chinito.catsmanager.model;
 
 
 public class ProductsInfo {
